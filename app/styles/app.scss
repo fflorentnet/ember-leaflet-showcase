@@ -1,0 +1,15 @@
+@import 'ember-paper';
+
+.leaflet-container {
+    height: 100%;
+    width: 100%;
+}
+
+body > div[class='ember-view'] {
+    width: 100%;
+    height: 100%;
+}
+
+.inner-sidenav {
+    height: 100%;
+}

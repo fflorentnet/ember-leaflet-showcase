@@ -1,5 +1,32 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-{{welcome-page}}
-{{!-- Feel free to remove this! --}}
+{{#paper-sidenav-container class="inner-sidenav"}}
+  {{#paper-sidenav
+    name="left2"
+    open=false
 
-{{outlet}}
+    }}
+    {{#paper-toolbar as |toolbar|}}
+      {{#paper-toolbar-tools}}Leaflet Showcase{{/paper-toolbar-tools}}
+    {{/paper-toolbar}}
+    {{#each drawnZones as |drawing|}}
+    <div class="layout-row">
+      {{#paper-checkbox class="flex-70" value=drawing.isShown onChange=(action 'showPolygon' drawing)}}
+        {{readable-polygon drawing}}
+      {{/paper-checkbox}}
+      {{#paper-button class="flex-20" warn=true class="flex" iconButton=true onClick=(action "deletePolygon" drawing)}}
+        {{paper-icon "remove_circle"}}
+      {{/paper-button}}
+      </div>
+    {{/each}}
+  {{/paper-sidenav}}
+
+  {{#paper-card-content class="flex"}}
+    <div class="layout-fill layout-align-start-center layout-column layout-xl" >
+    {{#leaflet-map lat=lat lng=lng zoom=zoom onLoad="initMap"}}
+          {{tile-layer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+          {{leaflet-draw drawingCreated=(action 'draw')}}
+    {{/leaflet-map}}
+    </div>
+    {{/paper-card-content}}
+
+{{/paper-sidenav-container}}
+
